@@ -1,3 +1,4 @@
+
 # TaoConnect
 
 A **stylish**, **responsive** single-page React application that allows users to interact with the **Tao Private Network (TPN)**—a decentralized, blockchain‑incentivized VPN infrastructure.  
@@ -44,6 +45,9 @@ By connecting through this app, you’re tapping directly into a **decentralized
 - **Lease Duration & Format**  
   Configure your WireGuard session’s lifetime and choose between raw text or JSON (with metadata).
 
+- **Auto QR Code Generation** 🧾📱  
+  Instantly generates a QR code for your WireGuard config so you can scan and connect directly using the **WireGuard mobile app**—no copy/paste needed.
+
 - **Expiry Alerts**  
   Browser notifications scheduled _before_ your lease expires—no more unexpected drops.
 
@@ -82,7 +86,6 @@ By connecting through this app, you’re tapping directly into a **decentralized
    ```
 
 ## 📂 Project Structure
-
 ```
 ├── public/                # Static assets
 ├── src/
@@ -105,4 +108,3 @@ This project is open‑source under the **MIT License** — see [LICENSE.md](LIC
 
 
 *Built with ❤️ by the TaoConnect community*
-
