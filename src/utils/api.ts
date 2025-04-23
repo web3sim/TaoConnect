@@ -27,7 +27,7 @@ export const fetchCountries = async (validator: string): Promise<Country[]> => {
     const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
 
     // Use this instead of directly hitting http://${validator}
-    const response = await fetch(`http://localhost:5001/proxy/api/config/countries?target=${validator}`, {
+    const response = await fetch(`https://taoconnect.onrender.com/proxy/api/config/countries?target=${validator}`, {
       signal: controller.signal
     });
     
@@ -158,7 +158,7 @@ export const generateConfig = async (
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 100000);
 
-    const proxyUrl = `http://localhost:5001/proxy/api/config/new?target=${validator}&format=${format}&geo=${country}&lease_minutes=${leaseMinutes}`;
+    const proxyUrl = `https://taoconnect.onrender.com/proxy/api/config/new?target=${validator}&format=${format}&geo=${country}&lease_minutes=${leaseMinutes}`;
     const response = await fetch(proxyUrl, { signal: controller.signal });
 
     clearTimeout(timeoutId);
