@@ -24,7 +24,7 @@ export const fetchCountries = async (validator: string): Promise<Country[]> => {
   try {
     // Add timeout to the fetch request
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+    const timeoutId = setTimeout(() => controller.abort(), 100000); // 5 second timeout
 
     // Use this instead of directly hitting http://${validator}
     const response = await fetch(`https://taoconnect.onrender.com/proxy/api/config/countries?target=${validator}`, {
@@ -156,7 +156,7 @@ export const generateConfig = async (
 ): Promise<WireGuardConfig | null> => {
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 100000);
+    const timeoutId = setTimeout(() => controller.abort(), 1000000);
 
     const proxyUrl = `https://taoconnect.onrender.com/proxy/api/config/new?target=${validator}&format=${format}&geo=${country}&lease_minutes=${leaseMinutes}`;
     const response = await fetch(proxyUrl, { signal: controller.signal });

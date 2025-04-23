@@ -56,10 +56,11 @@ const LeaseConfig: React.FC<LeaseConfigProps> = ({
             onChange={(e) => onFormatChange(e.target.value as 'text' | 'json')}
             className="select pl-10"
           >
-            <option value="text">Text</option>
-            <option value="json">JSON</option>
+              <option value="json">JSON</option>
+   
+          
           </select>
-        </div>
+        </div> 
       </div>
 
       <div>

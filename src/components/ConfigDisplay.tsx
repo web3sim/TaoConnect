@@ -1,8 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Copy, Download } from 'lucide-react';
 import { format } from 'date-fns';
 import toast from 'react-hot-toast';
+import {QRCodeCanvas} from 'qrcode.react';
 import { downloadConfig } from '../utils/api';
 
 interface ConfigDisplayProps {
@@ -11,11 +12,9 @@ interface ConfigDisplayProps {
 }
 
 const ConfigDisplay: React.FC<ConfigDisplayProps> = ({ config, expiresAt }) => {
-  const preRef = useRef<HTMLPreElement>(null);
-
   const handleCopy = () => {
     if (!config) return;
-    
+
     navigator.clipboard.writeText(config)
       .then(() => toast.success('Config copied to clipboard!'))
       .catch(() => toast.error('Failed to copy config'));
@@ -25,6 +24,12 @@ const ConfigDisplay: React.FC<ConfigDisplayProps> = ({ config, expiresAt }) => {
     if (!config) return;
     downloadConfig(config);
   };
+
+  useEffect(() => {
+    if (config) {
+      handleDownload();
+    }
+  }, [config]);
 
   if (!config) return null;
 
@@ -40,7 +45,7 @@ const ConfigDisplay: React.FC<ConfigDisplayProps> = ({ config, expiresAt }) => {
       className="mt-6 glass-card overflow-hidden"
     >
       <div className="flex justify-between items-center p-4 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-        <h3 className="text-lg font-medium">WireGuard Configuration</h3>
+        <h3 className="text-lg font-medium">Config File</h3>
         <div className="flex space-x-2">
           <button
             onClick={handleCopy}
@@ -58,16 +63,15 @@ const ConfigDisplay: React.FC<ConfigDisplayProps> = ({ config, expiresAt }) => {
           </button>
         </div>
       </div>
-      
-      <div className="relative">
-        <pre
-          ref={preRef}
-          className="p-4 bg-gray-900 text-gray-100 overflow-x-auto text-sm font-mono rounded-b-xl"
-        >
-          {config}
-        </pre>
+
+      <div className="flex justify-center p-6 bg-white dark:bg-gray-900">
+        <QRCodeCanvas value={config} size={256} />
       </div>
-      
+
+      <div className="px-4 py-3 bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 text-sm">
+        <span className="font-medium bg-red"> Scan the QR Code in Wireguard Mobile app or Just Import config to Compter </span>
+      </div>
+
       <div className="px-4 py-3 bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 text-sm">
         <span className="font-medium">Expires at:</span> {formattedExpiryTime}
       </div>
