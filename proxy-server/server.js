@@ -3,21 +3,26 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const cors = require('cors');
 
 const app = express();
-app.use(cors()); // allow all CORS by default
+app.use(cors()); // Enable CORS for all requests
 
-// Example: /proxy/api/config/countries?target=192.168.0.2:8000
+// Proxy route: /proxy?target=host:port&path=/api/endpoint
 app.use('/proxy', (req, res, next) => {
   const target = req.query.target;
-  if (!target) return res.status(400).send('Missing target parameter');
+  const path = req.query.path;
+
+  if (!target || !path) {
+    return res.status(400).send('Missing target or path parameter');
+  }
 
   return createProxyMiddleware({
     target: `http://${target}`,
     changeOrigin: true,
-    pathRewrite: (path, req) => path.replace(/^\/proxy/, ''),
+    pathRewrite: () => path,
   })(req, res, next);
 });
 
-const PORT = 5001;
+// Use dynamic port for Render
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
   console.log(`✅ Proxy server running at http://localhost:${PORT}`);
 });
