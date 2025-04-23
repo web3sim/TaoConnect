@@ -3,22 +3,23 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const cors = require('cors');
 
 const app = express();
-app.use(cors()); // Enable CORS for all requests
+app.use(cors()); // Enable all CORS requests
 
-// Proxy route: /proxy?target=host:port&path=/api/endpoint
+// Matches: /proxy/<any-path>?target=host:port
 app.use('/proxy', (req, res, next) => {
   const target = req.query.target;
-  const path = req.query.path;
+  if (!target) return res.status(400).send('Missing target parameter');
 
-  if (!target || !path) {
-    return res.status(400).send('Missing target or path parameter');
-  }
-
-  return createProxyMiddleware({
+  const proxy = createProxyMiddleware({
     target: `http://${target}`,
     changeOrigin: true,
-    pathRewrite: () => path,
-  })(req, res, next);
+    pathRewrite: (path, req) => {
+      // Remove `/proxy` from path
+      return path.replace(/^\/proxy/, '');
+    },
+  });
+
+  return proxy(req, res, next);
 });
 
 // Use dynamic port for Render
