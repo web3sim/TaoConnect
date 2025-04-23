@@ -18,8 +18,11 @@ import useNotifications from './hooks/useNotifications';
 
 // Mock validators - in a real app these could be fetched or configured
 const VALIDATORS: Validator[] = [
-  { value: '185.189.44.166:3000', label: 'Validator 1 (185.189.44.166:3000)' },
-  { value: '185.141.218.102:3000', label: 'Validator 2 (185.141.218.102:3000)' },
+  { value: '185.189.44.166:3000', label: 'Validator 1 (185.189.44.166)' },
+  { value: '185.141.218.102:3000', label: 'Validator 2 (185.141.218.102)' },
+  { value: '34.130.136.222:3000', label: 'Validator 3 (34.130.136.222)' },
+  { value: '161.35.91.172:3000', label: 'Validator 4 (161.35.91.172)' },
+  { value: '192.150.253.122:3000', label: 'Validator 5 (192.150.253.122)' },
   { value: 'localhost:3000', label: 'Local (Development)' },
 ];
 
