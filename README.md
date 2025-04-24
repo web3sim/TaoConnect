@@ -10,6 +10,9 @@ Users can:
 - Download and connect using standard VPN clients
 - Get **expiry alerts** before their lease ends
 
+## Demo
+https://screen.studio/share/eWs635fK
+
 ## 📖 Blockchain & Decentralization
 
 TPN is built on a blockchain‑driven incentive model:  
